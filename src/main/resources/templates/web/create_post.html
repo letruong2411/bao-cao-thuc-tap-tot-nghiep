@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="web/common/header :: common-header"/>
+<body>
+<head th:replace="web/common/header :: navbar"/>
+<div class=" container">
+    <div class=" register">
+        <h1>Tạo Bảng Tin</h1>
+        <form th:action="@{/createPost/1}" method="post" name="createForm" onsubmit="return validateForm()">
+            <div class="col-md-6 register-top-grid">
+                <div>
+                    <span STYLE="font-size: 20px;font-weight: bold;color: cadetblue">Tiêu đề bài đăng</span>
+                    <input type="text" name="title" >
+                </div>
+                <div>
+                    <span STYLE="font-size: 20px;font-weight: bold;color: cadetblue">Nội dung</span>
+                    <input type="text" name="content">
+                </div>
+                <div>
+                    <span STYLE="font-size: 20px;font-weight: bold;color: cadetblue">Số ngày lưu tin</span>
+                    <input type="text" id="savePostDayNumber" name="savePostDayNumber">
+                    <span id="savePostDayNumberMessage" style="color:#ff0000"> </span>
+                </div>
+                <span STYLE="font-size: 20px;font-weight: bold;color: cadetblue">Phòng trọ:</span>
+                <select th:name="roomId" class="form-control">
+                    <th:block th:each="room : ${roomList}">
+                        <option
+                                th:value="${room.getId()}"
+                                th:utext="${room.getRoomName()}">
+                        </option>
+                    </th:block>
+                </select></br></br>
+                <input type="submit" value="submit" class="btn btn-success">
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<head th:replace="web/common/footer :: footer"/>
+<script>
+    function validateForm() {
+
+
+        if (!savePostDayNumber.match("\\d{9}")) {
+            document.getElementById("savePostDayNumberMessage").innerHTML = "vui long nhap so ngay";
+            count++;
+        } else {
+            document.getElementById("savePostDayNumberMessage").innerHTML = "";
+        }
+
+    }
+</script>
+</body>

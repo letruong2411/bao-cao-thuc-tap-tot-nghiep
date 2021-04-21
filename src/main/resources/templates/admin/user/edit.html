@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/common/header :: common-header"/>
+<body>
+
+<section id="container" >
+    <!-- **********************************************************************************************************************************************************
+    TOP BAR CONTENT & NOTIFICATIONS
+    *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <head th:replace="admin/common/header :: navbar"/>
+    <!--header end-->
+
+    <!-- **********************************************************************************************************************************************************
+    MAIN SIDEBAR MENU
+    *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <head th:replace="admin/common/sidebar :: sidebar"/>
+    <!--sidebar end-->
+
+    <!-- **********************************************************************************************************************************************************
+    MAIN CONTENT
+    *********************************************************************************************************************************************************** -->
+
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+
+            <div class="row">
+                <div class="col-md-12 panel-info">
+                    <div class="content-box-header panel-heading" style="margin-bottom: 30px">
+                        <div class="panel-title "><h2 style="text-align: center;">Chỉnh sửa người dùng</h2></div>
+                    </div>
+
+
+                    <form action="" method="POST" enctype="multipart/form-data">
+
+
+                        <div class="content-box-large box-with-header">
+                            <div>
+                                <div class="row mb-10"></div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="name">USERNAME(*)</label>
+                                            <input required="required" type="text" name="username" value=""
+                                                   class="form-control" placeholder="*Nhập username">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name">FULLNAME(*)</label>
+                                            <input required="required" type="text" name="fullname" value=""
+                                                   class="form-control" placeholder="*Nhập fullname">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name">PASSWORD(*)</label>
+                                            <input required="required" type="password" name="password"
+                                                   class="form-control" placeholder="*Nhập password">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name">CONFIRM PASSWORD(*)</label>
+                                            <input required="required" type="password" name="conf_password"
+                                                   class="form-control" placeholder="*Xác nhận lại mật khẩu">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name">GENDER:</label>
+                                            NAM<input type="radio" name="gender" value = "nam">
+                                            NU<input type="radio" name="gender" value = "nu">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name">IDENTITY CARD</label>
+                                            <input required="required" type="text" name="identC"
+                                                   class="form-control" placeholder="*Nhập số CMND">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name">PHONE</label>
+                                            <input required="required" type="text" name="phone"
+                                                   class="form-control" placeholder="*Nhập SĐT">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name">ADDRESS</label>
+                                            <input required="required" type="text" name="address"
+                                                   class="form-control" placeholder="*Nhập địa chỉ">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name">BALANCE</label>
+                                            <input required="required" type="text" name="balance"
+                                                   class="form-control" placeholder="*Nhập số tài khoản">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name">SĐT</label>
+                                            <input type="text" name="color" value="" class="form-control"
+                                                   placeholder="*Nhập SĐT">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <input type="submit" value="Thêm" class="btn btn-success"/>
+                                        <input type="reset" value="Nhập lại" class="btn btn-default"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- /.row col-size -->
+
+            </div>
+
+        </section>
+    </section>
+
+    <!--main content end-->
+    <!--footer start-->
+    <head th:replace="admin/common/footer :: footer"/>
+    <!--footer end-->
+</section>
+<head th:replace="admin/common/header :: body-bottom-scripts"/>
+</body>
+</html>

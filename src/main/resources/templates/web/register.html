@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="web/common/header :: common-header"/>
+<body>
+<head th:replace="web/common/header :: navbar"/>
+<div class=" container">
+    <div class=" register">
+        <h1>Đăng ký một tài khoản</h1>
+        <form th:action="@{/register}" method="post" name="registerForm" onsubmit ="return validateForm()">
+            <div class="col-md-6 register-top-grid">
+                <h3>Thông tin cá nhân</h3>
+                <div>
+                    <span>Email đăng nhập</span>
+                    <input type="text" id="username" name="username" th:value="${user.username}">
+                    <span id="gmailMessage" style="color:red"> </span>
+                    <span th:if="${emailExists}" style="color:red">Gmail đã tồn tại</span>
+
+                </div>
+                <div>
+                    <span>Họ và tên</span>
+                    <input type="text" id="fullName" name="fullName" th:value="${user.fullName}">
+                    <span id="fullNameMessage" style="color:red"> </span>
+                </div>
+                <div>
+                    <span>Số chứng minh nhân dân</span>
+                    <input type="text" id="identityCard" name="identityCard" th:value="${user.identityCard}">
+                    <span id="identityCardMessage" style="color:red"> </span>
+                </div>
+                <div>
+                    <span>Số điện thoại</span>
+                    <input type="text" id="phoneNumber" name="phoneNumber" th:value="${user.phoneNumber}">
+                    <span id="phoneNumberMessage" style="color:red"> </span>
+                </div>
+                <div>
+                    <span>Địa chỉ</span>
+                    <input type="text" id="address" name="address" th:value="${user.address}">
+                    <span id="addressMessage" style="color:red"> </span>
+                </div>
+                <div>
+                    <span>Giới tính:</span>
+                    <input checked type="radio" id="male" name="gender" value="1">
+                    <label for="male">Nam</label>
+                    <input type="radio" id="female" name="gender" value="2">
+                    <label for="female">Nữ</label>
+                    <input type="radio" id="other" name="gender" value="0">
+                    <label for="other">Khác</label>
+                </div>
+            </div>
+
+            <div class="col-md-6 register-bottom-grid">
+                <h3>Thông tin đăng nhập</h3>
+                <div>
+                    <span>Mật khẩu</span>
+                    <input type="password" id="pw" name="password" th:value="${user.password}" />
+                    <span id="passwordMessage" style="color:red"> </span>
+                </div>
+                <div>
+                    <span>Xác nhận mật khẩu</span>
+                    <input type="password" id="confirmPassword" name="confirmPassword" />
+                    <span id="confirmPasswordMessage" style="color:red"> </span>
+                </div>
+                <input type="submit" value="submit">
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<head th:replace="web/common/footer :: footer"/>
+<script>
+    function validateForm() {
+        //collect form data in JavaScript variables
+        var pw1 = document.getElementById("pw").value;
+        var pw2 = document.getElementById("confirmPassword").value;
+        var username = document.getElementById("username").value;
+        var fullName = document.getElementById("fullName").value;
+        var identityCard = document.getElementById("identityCard").value;
+        var phoneNumber = document.getElementById("phoneNumber").value;
+        var address = document.getElementById("address").value;
+        var count = 0;
+
+        if(!username.match("\\w+@\\w+(\\.\\w){1,4}")) {
+            document.getElementById("gmailMessage").innerHTML = "Gmail không đúng định dạng";
+            count++;
+        } else {
+            document.getElementById("gmailMessage").innerHTML = "";
+        }
+
+        if(fullName == "") {
+            document.getElementById("fullNameMessage").innerHTML = "Họ tên chưa được nhập";
+            count++;
+        } else {
+            document.getElementById("fullNameMessage").innerHTML = "";
+        }
+
+        if(!identityCard.match("\\d{9}")) {
+            document.getElementById("identityCardMessage").innerHTML = "Số chứng minh nhân dân bao gồm 9 số";
+            count++;
+        } else {
+            document.getElementById("identityCardMessage").innerHTML = "";
+        }
+
+
+        if(!phoneNumber.match("\\d{10}")) {
+            document.getElementById("phoneNumberMessage").innerHTML = "Số điện thoại bao gồm 10 số";
+            count++;
+        } else {
+            document.getElementById("phoneNumberMessage").innerHTML = "";
+        }
+
+        if(address == "") {
+            document.getElementById("addressMessage").innerHTML = "Địa chỉ chưa được nhập";
+            count++;
+        } else {
+            document.getElementById("addressMessage").innerHTML = "";
+        }
+
+        if(pw1.length < 8 || pw1.length > 15) {
+            document.getElementById("passwordMessage").innerHTML = "Mật khẩu phải từ 8 đến 15 kí tự";
+            count++;
+        } else {
+            document.getElementById("passwordMessage").innerHTML = "";
+        }
+
+        if(pw1 != pw2) {
+            document.getElementById("confirmPasswordMessage").innerHTML = "Mật khẩu không khớp";
+            count++;
+        } else {
+            document.getElementById("confirmPasswordMessage").innerHTML = "";
+        }
+
+        if(count != 0) {
+            return false;
+        }
+    }
+</script>
+</body>

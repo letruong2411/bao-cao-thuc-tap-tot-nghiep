@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="common-header">
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>User Front</title>
+    <!-- Bootstrap Core CSS -->
+
+    <link rel="stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link th:href="@{/web/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all"/>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/web/js/jquery.min.js}"></script>
+    <script th:src="@{/web/js/jquery.min.js}"></script>
+    <!-- Custom Theme files -->
+    <!--theme-style-->
+    <link th:href="@{/web/css/style.css}" rel="stylesheet" type="text/css" media="all"/>
+    <!--//theme-style-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="New Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!--fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+    <!--//fonts-->
+    <!-- start menu -->
+    <link th:href="@{/web/css/memenu.css}" rel="stylesheet" type="text/css" media="all"/>
+    <script type="text/javascript" th:src="@{/web/js/memenu.js}"></script>
+    <script>$(document).ready(function () {
+        $(".memenu").memenu();
+    });</script>
+    <script th:src="@{/web/js/simpleCart.min.js}"></script>
+    <script th:src="@{/web/js/main.js}"></script>
+    <style>
+        .available th{
+            background-color: #EEEEEE;}
+        .available tr {
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="navbar">
+    <div class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="logo">
+                    <a th:href="@{/}"> <img th:src="@{/web/images/logo.png}"
+                                            style="    width: 50%;margin-bottom: -14px;margin-top: -18px;" alt=""></a>
+                </div>
+
+                <div class="header-left">
+
+
+                    <ul>
+                        <li th:if="${ USERMODEL == null }"><a th:href="@{/login}">Đăng Nhập</a></li>
+                        <li th:if="${ USERMODEL == null }"><a th:href="@{/register}">Đăng ký</a></li>
+                        <li th:if="${ USERMODEL != null }"><a th:href="@{#}">Xin chào, [[${USERMODEL.fullName}]]</a></li>
+
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="head-top">
+                <div class="search">
+                    <form th:action="@{/search}" method="post">
+                        <input type="text" name="address">
+
+                        <input type="submit" value="Tìm kiếm">
+                    </form>
+                </div>
+                <div class=" h_menu4">
+                    <ul class="memenu skyblue">
+                        <li class="active grid"><a class="color8" th:href="@{/}">Home</a></li>
+                        <li><a class="color1" th:href="@{#}">Tìm kiếm theo tiêu chí</a>
+                            <div class="mepanel">
+                                <div class="row">
+                                    <form th:action="@{/filter}" method="post" id="filterForm">
+                                    <div class="col1">
+                                        <div class="h_nav">
+
+                                                <h4>Loại hình trọ</h4>
+                                                <ul>
+                                                    <th:block th:each="typeRoom : ${typeRoomsList}">
+                                                        <li><input type="radio" name="typeRoom"
+                                                                   th:value="${typeRoom.getId()}"
+                                                                   th:utext="${typeRoom.getTypeName()}"></li>
+                                                    </th:block>
+                                                </ul>
+<!--                                            </form>-->
+                                        </div>
+                                    </div>
+                                    <div class="col1">
+                                        <div class="h_nav">
+                                            <h4>Khu vực</h4>
+                                            <ul>
+                                                <th:block th:each="area : ${areasList}">
+                                                    <li><input type="radio" name="area"
+                                                               th:value="${area.getId()}"
+                                                               th:utext="${area.getAreaName()}"></li>
+                                                </th:block>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col1">
+                                        <div class="h_nav">
+                                            <h4>Khoảng giá tiền</h4>
+                                            <ul>
+                                                <th:block th:each="price : ${pricesList}">
+                                                    <li><input type="radio" name="price"
+                                                               th:value="${price.getId()}"
+                                                               th:utext="${price.getPriceName()}"></li>
+
+                                                </th:block>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" style="margin-top: 15px;float: right;margin-bottom: -15px;"
+                                            form="filterForm" value="submit"
+                                            class="btn btn-success">Tìm kiếm theo tiêu chí
+                                    </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li><a class="color4" th:href="@{/room/create}">Tạo Phòng trọ</a></li>
+                        <li><a class="color6" th:href="@{/createPost?idUser={id}(id=${id})}">Đăng tin</a></li>
+                        <li class="grid"><a class="color2" th:href="@{#}">Tài khoản</a>
+                            <div class="mepanel">
+                                <div class="row">
+                                    <div class="col1">
+                                        <div class="h_nav">
+                                            <ul>
+                                                <li><a th:href="@{/user/profile}">Thông tin cá nhân</a></li>
+                                                <li><a th:href="@{/post}">Quản lý bảng tin</a></li>
+                                                <li><a th:href="@{/room}">Quản lý phòng trọ</a></li>
+                                                <li><a th:href="@{/logout}">Đăng xuất</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

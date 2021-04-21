@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="web/common/header :: common-header"/>
+<body>
+<head th:replace="web/common/header :: navbar"/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Thông tin của bạn</h4>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form th:action="@{/user/profile/edit}" method="post" name="editForm"
+                                  onsubmit="return validateForm()">
+                                <div class="form-group row">
+                                    <label for="username" class="col-4 col-form-label">Email đăng nhập</label>
+                                    <div class="col-8">
+                                        <input id="username" name="username" placeholder="Username"
+                                               th:value="${USERMODEL.username}"
+                                               class="form-control here" required="required" type="text" disabled/>
+                                        <span id="gmailMessage" style="color:red"> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="fullName" class="col-4 col-form-label">Họ và tên</label>
+                                    <div class="col-8">
+                                        <input id="fullName" name="fullName" placeholder="First Name"
+                                               class="form-control here"
+                                               th:value="${USERMODEL.fullName}" required="required" type="text"/>
+                                        <span id="fullNameMessage" style="color:red"> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="identityCard" class="col-4 col-form-label">Số CMND</label>
+                                    <div class="col-8">
+                                        <input id="identityCard" name="identityCard" placeholder="Last Name"
+                                               th:value="${USERMODEL.identityCard}" required="required"
+                                               class="form-control here" type="text">
+                                        <span id="identityCardMessage" style="color:red"> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="phoneNumber" class="col-4 col-form-label">Số điện thoại</label>
+                                    <div class="col-8">
+                                        <input id="phoneNumber" name="phoneNumber" placeholder="Nick Name"
+                                               class="form-control here"
+                                               th:value="${USERMODEL.phoneNumber}" required="required" type="text">
+                                        <span id="phoneNumberMessage" style="color:red"> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="address" class="col-4 col-form-label">Địa chỉ</label>
+                                    <div class="col-8">
+                                        <input id="address" name="address" placeholder="Email" class="form-control here"
+                                               th:value="${USERMODEL.address}" required="required" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Giới tính</label>
+                                    <div class="col-8">
+                                        <input type="radio" id="male" name="gender" value="1">
+                                        <label for="male">Nam</label>
+                                        <input type="radio" id="female" name="gender" value="2">
+                                        <label for="female">Nữ</label>
+                                        <input type="radio" id="other" name="gender" value="0">
+                                        <label for="other">Khác</label>
+                                    </div>
+
+                                    <label class="col-4 col-form-label">Mật khẩu mới</label>
+                                    <div class="col-8">
+                                        <input id="password" name="password" placeholder="New Password"
+                                               class="form-control here" type="password">
+                                        <span id="passwordMessage" style="color:red"> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Xác nhận mật khẩu mới</label>
+                                    <div class="col-8">
+                                        <input id="confirmPassword" name="confirmPassword" placeholder="New Password"
+                                               class="form-control here" type="password">
+                                        <p><span style="color:black">Không bắt buộc nhập </span></p>
+                                        <span id="confirmPasswordMessage" style="color:red"> </span>
+                                        <span th:if="${message}" id="message"
+                                              style="color:red">Dữ liệu bị trùng lặp</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="offset-4 col-8">
+                                        <button name="submit" type="submit" class="btn btn-primary">Cập nhật
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="id" th:value="${USERMODEL.id}"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var gender = [[${USERMODEL.gender}]];
+    switch (gender) {
+        case 1: {
+            document.getElementById("male").setAttribute("checked","checked")
+        }
+            break;
+
+        case 2: {
+            document.getElementById("female").setAttribute("checked","checked")
+        }
+            break;
+
+        case 0: {
+            document.getElementById("other").setAttribute("checked","checked")
+        }
+            break;
+    }
+    function validateForm() {
+        
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        var identityCard = document.getElementById("identityCard").value;
+        var phoneNumber = document.getElementById("phoneNumber").value;
+        var count = 0;
+
+        document.getElementById("message").innerHTML = "";
+
+        if (!identityCard.match("\\d{9}")) {
+            document.getElementById("identityCardMessage").innerHTML = "Số chứng minh nhân dân bao gồm 9 số";
+            count++;
+        } else {
+            document.getElementById("identityCardMessage").innerHTML = "";
+        }
+
+        if (!phoneNumber.match("\\d{10}")) {
+            document.getElementById("phoneNumberMessage").innerHTML = "Số điện thoại bao gồm 10 số";
+            count++;
+        } else {
+            document.getElementById("phoneNumberMessage").innerHTML = "";
+        }
+
+        if (password != "") {
+            if (password.length < 8 || password.length > 15) {
+                document.getElementById("passwordMessage").innerHTML = "Mật khẩu phải từ 8 đến 15 kí tự";
+                count++;
+            } else {
+                document.getElementById("passwordMessage").innerHTML = "";
+            }
+
+            if (password != confirmPassword) {
+                document.getElementById("confirmPasswordMessage").innerHTML = "Mật khẩu không khớp";
+                count++;
+            } else {
+                document.getElementById("confirmPasswordMessage").innerHTML = "";
+            }
+        }
+
+        if (count != 0) {
+            return false;
+        }
+    }
+</script>
+
+<head th:replace="web/common/footer :: footer"/>
+</body>
+</html>

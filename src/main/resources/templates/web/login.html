@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="web/common/header :: common-header">
+
+</head>
+<body>
+<head th:replace="web/common/header :: navbar"/>
+<div class="container">
+    <div class="account">
+        <h1>Đăng nhập</h1>
+        <div class="account-pass">
+            <div class="col-md-8 account-top">
+                <form th:action="@{/login}" method="post" name="loginForm" onsubmit ="return validateForm()">
+
+                    <div>
+                        <span>Email</span>
+                        <input id="username" name="username" type="text" th:value="${user.username}">
+                        <span id="usernameMessage" style="color:red"> </span>
+                    </div>
+                    <div>
+                        <span >Password</span>
+                        <input id="password" name="password" type="password" th:value="${user.password}">
+                        <span id="passwordMessage" style="color:red"> </span>
+                    </div>
+                    <div class="bg-danger" th:if="${param.error}">
+                        Invalid gmail and password.
+                    </div>
+                    <input type="submit" value="Login"/>
+                </form>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<head th:replace="web/common/footer :: footer"/>
+<script>
+    function validateForm() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        if(!username.match("\\w+@\\w+(\\.\\w){1,4}")) {
+            document.getElementById("usernameMessage").innerHTML = "Gmail không đúng định dạng!";
+            return false;
+        }
+
+        if(password.length < 8 || password.length > 15) {
+            document.getElementById("passwordMessage").innerHTML = "Mật khẩu phải từ 8 đến 15 kí tự";
+            return false;
+        }
+    }
+</script>
+</body>

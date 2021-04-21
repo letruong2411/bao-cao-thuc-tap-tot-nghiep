@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="web/common/header :: common-header">
+
+</head>
+<body>
+<head th:replace="web/common/header :: navbar"/>
+<div class="banner">
+    <div class="container">
+        <script th:src="@{/web/js/responsiveslides.min.js}"></script>
+        <script>
+            $(function () {
+                $("#slider").responsiveSlides({
+                    auto: true,
+                    nav: true,
+                    speed: 500,
+                    namespace: "callbacks",
+                    pager: true,
+                });
+            });
+        </script>
+        <div id="top" class="callbacks_container">
+            <ul class="rslides" id="slider">
+                <th:block th:each="post : ${postsList}">
+                    <li>
+
+                        <div class="banner-text">
+                            <h3 style="">[[${post.getTitle()}]]</h3>
+                            <p>[[${post.getRoom().getDescription()}]]</p>
+                            <a th:href="@{/post/{id}(id=${post.getId()})}">Learn More</a>
+                        </div>
+
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<!--content-->
+<div class="content">
+    <div class="container">
+        <div class="content-top">
+            <h1>PHÒNG TRỌ NỔI BẬT</h1>
+            <div class="grid-in">
+                <th:block th:each="post : ${postsList}">
+
+                    <div class="col-md-4 grid-top">
+                        <a th:href="@{/post/{id}(id=${post.getId()})}"
+                           class="b-link-stripe b-animate-go  thickbox"><img class="img-responsive"
+                                                                             style="width: 350px;height: 350px;"
+                                                                             th:src="@{/web/images/{path}(path=${post.getRoom().getImages().stream().findFirst().get().getFileName()})}"
+                                                                             alt="">
+                            <div class="b-wrapper" style="width: 350px;height: 350px;">
+                                <h3 class="b-animate b-from-left    b-delay03 ">
+                                    <span>Xem Ngay</span>
+                                </h3>
+                            </div>
+                        </a>
+                        <p><a th:href="@{#}">
+                            <span style="font-size: x-small;color: mediumvioletred;float: left;"
+                                  th:utext="${post.getRoom().getArea().getAreaName()}"> </span><br>
+                            <span style="font-size: smaller;color: red;" th:utext="${post.getTitle()}"> </span><br>
+                            <span style="color: #0062C4" th:utext="${post.getRoom().getCost()}"></span><br>
+                            <span style="color: gray; font-size: smaller;"
+                                  th:utext="${post.getRoom().getAddress()}"></span></a>
+                        </p>
+                    </div>
+
+                </th:block>
+                <div class="clearfix"></div>
+                <nav class="in">
+                    <ul class="pagination">
+                        <li th:if="${currentPage > 1}"><a th:href="@{/filter/page/{id}(id=${currentPage - 1})}"
+                                                          aria-label="Previous"><span aria-hidden="true">«</span></a>
+                        </li>
+                        <li th:unless="${currentPage > 1}" class="disabled"><a aria-label="Previous"><span
+                                aria-hidden="true">«</span></a></li>
+                        <li th:if="${currentPage > 2}"><a th:href="@{/filter/page/{id}(id=${currentPage - 2})}">[[${currentPage
+                            - 2}]] <span class="sr-only"></span></a></li>
+                        <li th:if="${currentPage > 1}"><a th:href="@{/filter/page/{id}(id=${currentPage - 1})}">[[${currentPage
+                            - 1}]] <span class="sr-only"></span></a></li>
+                        <li class="active"><a th:href="@{/filter/page/{id}(id=${currentPage})}">[[${currentPage}]] <span
+                                class="sr-only"></span></a></li>
+                        <li th:if="${currentPage < totalPages}"><a
+                                th:href="@{/filter/page/{id}(id=${currentPage + 1})}">[[${currentPage + 1}]] <span
+                                class="sr-only"></span></a></li>
+                        <li th:if="${currentPage < totalPages-1}"><a
+                                th:href="@{/filter/page/{id}(id=${currentPage + 2})}">[[${currentPage + 2}]] <span
+                                class="sr-only"></span></a></li>
+                        <li th:if="${currentPage < totalPages}"><a th:href="@{/filter/page/{id}(id=${currentPage + 1})}"
+                                                                   aria-label="Next"><span aria-hidden="true">»</span>
+                        </a></li>
+                        <li th:unless="${currentPage < totalPages}" class="disabled"><a aria-label="Next"><span
+                                aria-hidden="true">»</span> </a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!----->
+
+</div>
+<head th:replace="web/common/footer :: footer"/>
+</body>
+</html>

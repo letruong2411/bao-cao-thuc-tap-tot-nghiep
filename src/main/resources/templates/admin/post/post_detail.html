@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="web/common/header :: common-header">
+
+</head>
+<body>
+<head th:replace="web/common/header :: navbar"/>
+<!--content-->
+<div class="product">
+    <a th:href="@{/admin-home/post}" class="btn btn-success" role="button">Back</a>
+    <div class="container">
+        <div class="col-md-12 product-price1">
+            <div class="col-md-5 single-top">
+                <div class="flexslider">
+                    <ul class="slides">
+                        <th:block th:each="image : ${POSTMODEL.getRoom().getImages()}">
+                            <li data-thumb="/web/images/thumbnail.jpg" >
+                                <img th:src="@{/web/images/{path}(path=${image.getFileName()})}"/>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+                <!-- FlexSlider -->
+                <script defer src="/web/js/jquery.flexslider.js"></script>
+                <link rel="stylesheet" href="/web/css/flexslider.css" type="text/css" media="screen"/>
+
+                <script>
+                    // Can also be used with $(document).ready()
+                    $(window).load(function () {
+                        $('.flexslider').flexslider({
+                            animation: "slide",
+                            controlNav: "thumbnails"
+                        });
+                    });
+                </script>
+            </div>
+            <div class="col-md-7 single-top-in simpleCart_shelfItem">
+                <div class="single-para ">
+                    <h4 data-th-text="${POSTMODEL.title}"></h4>
+                    <div class="available">
+                        <table border="1">
+                            <tr>
+                                <th class="col-lg-3 col-md-6 col-sm-6">Địa chỉ</th>
+                                <td class="col-lg-3 col-md-6 col-sm-6" data-th-text="${POSTMODEL.room.address}">...</td>
+                            </tr>
+                            <th class="col-lg-3 col-md-6 col-sm-6">Khu vực</th>
+                            <td class="col-lg-3 col-md-6 col-sm-6" th:text="${POSTMODEL.room.area.areaName}">...</td>
+                            </tr>
+                            <tr>
+                                <th class="col-lg-3 col-md-6 col-sm-6">Loại tin rao</th>
+                                <td class="col-lg-3 col-md-6 col-sm-6" th:text="${POSTMODEL.room.typeRoom.typeName}">
+                                    ...
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-lg-3 col-md-6 col-sm-6">Ngày đăng</th>
+                                <td class="col-lg-3 col-md-6 col-sm-6" th:text="${POSTMODEL.createdAt}">...</td>
+                            </tr>
+                            <tr>
+                                <th class="col-lg-3 col-md-6 col-sm-6">Người đăng tin</th>
+                                <td class="col-lg-3 col-md-6 col-sm-6" th:text="${POSTMODEL.createdBy}">...</td>
+                            </tr>
+                            <tr>
+                                <th class="col-lg-3 col-md-6 col-sm-6">Số điện thoại</th>
+                                <td class="col-lg-3 col-md-6 col-sm-6" th:text="${POSTMODEL.room.acreage}">...</td>
+                            </tr>
+                            <tr>
+                                <th class="col-lg-3 col-md-6 col-sm-6">Diện tích</th>
+                                <td class="col-lg-3 col-md-6 col-sm-6" th:text="${POSTMODEL.room.acreage}">...</td>
+                            </tr>
+                            <tr>
+                                <th class="col-lg-3 col-md-6 col-sm-6">Gía</th>
+                                <td class="col-lg-3 col-md-6 col-sm-6" th:text="${POSTMODEL.room.cost}">...</td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <!---->
+            <div class="cd-tabs">
+                <nav>
+                    <ul class="cd-tabs-navigation">
+                        <li><a data-content="fashion" href="#0" class="selected ">Description </a></li>
+                        <!--                        <li><a data-content="television" href="#0" >Reviews (1)</a></li>-->
+
+                    </ul>
+                </nav>
+                <ul class="cd-tabs-content">
+                    <li data-content="fashion" class="selected">
+                        <div class="facts">
+                            <div data-th-text="${POSTMODEL.content}" style=" font-size: 20px">...</div>
+                        </div>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--//content-->
+<head th:replace="web/common/footer :: footer"/>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="web/common/header :: common-header"/>
+<body>
+<head th:replace="web/common/header :: navbar"/>
+<div class=" container">
+    <div class=" createroom" style="margin-left: 300px">
+        <h1 style="margin-left: 100px" >Tạo phòng mới</h1><br/><br/>
+        <form th:action="@{/room/create}" method="post" name="createRoomForm" onsubmit ="return validateForm()" enctype="multipart/form-data">
+            <div class="col-md-6 register-top-grid">
+                <h3>Thông tin </h3>
+                <div class="form-group">
+                    <label>Tên Phòng :</label>
+                    <input type="text" id="roomName" name="roomName" class="form-control" >
+                    <span id="roomNameMessage" style="color:red"> </span>
+                </div>
+                <div class="form-group">
+                    <label>Giá phòng :</label>
+                    <input type="text" id="price" name="cost" class="form-control" >
+                    <span id="priceMessage" style="color:red"> </span>
+                </div>
+                <div class="form-group">
+                    <label>Khu vực :</label>
+                    <select name="area" id="area" class="form-control">
+                        <option data-th-each="eachArea: ${areaList}"  data-th-text="${eachArea.areaName}" th:value="${eachArea.id}">Phòng mới</option>
+                        <span id="areaMessage" style="color:red"> </span>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Địa chi</label>
+                    <input type="text" id="address" name="address" class="form-control">
+                    <span id="addressMessage" style="color:red"> </span>
+                </div>
+                <div class="form-group">
+                    <label>Diện tích</label>
+                    <input type="text" id="average" name="acreage" class="form-control" >
+                    <span id="averageMessage" style="color:red"> </span>
+                </div>
+            </div>
+                <div class="col-md-6 register-top-grid">
+                <div class="form-group">
+                    <label>Loại phòng :</label>
+                    <select name="typeRoom" id="roomType" class="form-control" >
+                        <option data-th-each="typeRoom: ${typeRoomList}"  data-th-text="${typeRoom.typeName}" th:value="${typeRoom.id}">Phòng mới</option>
+                        <span id="roomTypeMessage" style="color:red"> </span>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Số người tối đa</label>
+                    <input type="number" id="maxPerson" name="maxPersonNumber" class="form-control">
+                    <span id="maxPersonMessage" style="color:#ff0000"> </span>
+                </div>
+                <div class="form-group">
+                    <label>Hình ảnh</label>
+                    <input type="file" id="picture" name="pictures" class="form-control" accept="image/jpeg, image/png">
+                    <input type="file" id="picture_1" name="pictures" class="form-control" accept="image/jpeg, image/png">
+                    <input type="file" id="picture_2" name="pictures" class="form-control" accept="image/jpeg, image/png">
+                    <span id="pictureMessage" style="color:#ff0000"> </span>
+                </div>
+                <div class="form-group">
+                    <label>Mô tả</label>
+                    <textarea id="description" name="description" rows="4" class="form-control"></textarea>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="submit" value="Thêm" class="btn btn-success"/>
+                    <input type="reset" value="Nhập lại" class="btn btn-default"/>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<head th:replace="web/common/footer :: footer"/>
+<script>
+    function validateForm() {
+        //collect form data in JavaScript variables
+        var price = document.getElementById("price").value;
+        var average = document.getElementById("average").value;
+        var address = document.getElementById("address").value;
+        var count = 0;
+
+        if(price === "") {
+            document.getElementById("priceMessage").innerHTML = "Bạn chưa nhập giá phòng !";
+            count++;
+        } else {
+            document.getElementById("priceMessage").innerHTML = "";
+        }
+        if(average === "") {
+            document.getElementById("averageMessage").innerHTML = "Bạn chưa nhập diện tích phòng !";
+            count++;
+        } else {
+            document.getElementById("averageMessage").innerHTML = "";
+        }
+        if(address === "") {
+            document.getElementById("addressMessage").innerHTML = "Địa chỉ chưa được nhập";
+            count++;
+        } else {
+            document.getElementById("addressMessage").innerHTML = "";
+        }
+
+        if(count !== 0) {
+            return false;
+        }
+    }
+</script>
+</body>

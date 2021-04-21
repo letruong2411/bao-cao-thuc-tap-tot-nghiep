@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="web/common/header :: common-header">
+
+</head>
+<body>
+<head th:replace="web/common/header :: navbar"/>
+<div class="banner">
+    <div class="container">
+        <script th:src="@{/web/js/responsiveslides.min.js}"></script>
+        <script>
+            $(function () {
+                $("#slider").responsiveSlides({
+                    auto: true,
+                    nav: true,
+                    speed: 500,
+                    namespace: "callbacks",
+                    pager: true,
+                });
+            });
+        </script>
+        <div id="top" class="callbacks_container">
+            <ul class="rslides" id="slider">
+                <li>
+
+                    <div class="banner-text">
+                        <h3>Lorem Ipsum is not simply dummy </h3>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a
+                            Latin professor .</p>
+                        <a th:href="@{#}">Learn More</a>
+                    </div>
+
+                </li>
+                <li>
+
+                    <div class="banner-text">
+                        <h3>There are many variations </h3>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a
+                            Latin professor .</p>
+                        <a th:href="@{#}">Learn More</a>
+
+                    </div>
+
+                </li>
+                <li>
+                    <div class="banner-text">
+                        <h3>Sed ut perspiciatis unde omnis</h3>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a
+                            Latin professor .</p>
+                        <a href=#>Learn More</a>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<!--content-->
+<div class="content">
+    <div class="container">
+        <div class="content-top">
+            <h1>PHÒNG TRỌ NỔI BẬT</h1>
+            <div class="grid-in">
+                <th:block th:each="post : ${postByRoomType}">
+
+                    <div class="col-md-4 grid-top">
+                        <a th:href="@{/post/${post.id}}"
+                           class="b-link-stripe b-animate-go  thickbox"><img class="img-responsive"
+                                                                             style="width: 350px;height: 350px;"
+                                                                             th:src="@{/web/images/si2.jpg}"
+                                                                             alt="">
+                            <div class="b-wrapper" style="width: 350px;height: 350px;">
+                                <h3 class="b-animate b-from-left    b-delay03 ">
+                                    <span>Xem Ngay</span>
+                                </h3>
+                            </div>
+                        </a>
+                        <p><a th:href="@{#}">
+                            <span style="font-size: x-small;color: mediumvioletred;float: left;"
+                                  th:utext="${post.getRoom().getArea().getAreaName()}"> </span><br>
+                            <span style="font-size: smaller;color: red;" th:utext="${post.getTitle()}"> </span><br>
+                            <span style="color: #0062C4" th:utext="${post.getRoom().getCost()}"></span><br>
+                            <span style="color: gray; font-size: smaller;"
+                                  th:utext="${post.getRoom().getAddress()}"></span></a>
+                        </p>
+                    </div>
+
+                </th:block>
+                <div class="clearfix"></div>
+                <nav class="in">
+                    <ul class="pagination">
+                        <li th:if="${currentPage > 1}"><a th:href="@{/page/{id}(id=${currentPage - 1})}"
+                                                          aria-label="Previous"><span aria-hidden="true">«</span></a>
+                        </li>
+                        <li th:unless="${currentPage > 1}" class="disabled"><a aria-label="Previous"><span
+                                aria-hidden="true">«</span></a></li>
+                        <li th:if="${currentPage > 2}"><a th:href="@{/page/{id}(id=${currentPage - 2})}">[[${currentPage
+                            - 2}]] <span class="sr-only"></span></a></li>
+                        <li th:if="${currentPage > 1}"><a th:href="@{/page/{id}(id=${currentPage - 1})}">[[${currentPage
+                            - 1}]] <span class="sr-only"></span></a></li>
+                        <li class="active"><a th:href="@{/page/{id}(id=${currentPage})}">[[${currentPage}]] <span
+                                class="sr-only"></span></a></li>
+                        <li th:if="${currentPage < totalPages}"><a th:href="@{/page/{id}(id=${currentPage + 1})}">[[${currentPage
+                            + 1}]] <span class="sr-only"></span></a></li>
+                        <li th:if="${currentPage < totalPages-1}"><a th:href="@{/page/{id}(id=${currentPage + 2})}">[[${currentPage
+                            + 2}]] <span class="sr-only"></span></a></li>
+                        <li th:if="${currentPage < totalPages}"><a th:href="@{/page/{id}(id=${currentPage + 1})}"
+                                                                   aria-label="Next"><span aria-hidden="true">»</span>
+                        </a></li>
+                        <li th:unless="${currentPage < totalPages}" class="disabled"><a aria-label="Next"><span
+                                aria-hidden="true">»</span> </a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!----->
+
+        <div class="content-top-bottom">
+            <h2>CẨM NANG TÌM TRỌ</h2>
+            <div class="col-md-6 men">
+                <a th:href="@{#}" class="b-link-stripe b-animate-go  thickbox"><img
+                        class="img-responsive" th:src="@{/web/images/t1.jpg}" alt="">
+                    <div class="b-wrapper">
+                        <h3 class="b-animate b-from-top top-in   b-delay03 ">
+                            <span>Lorem</span>
+                        </h3>
+                    </div>
+                </a>
+
+
+            </div>
+            <div class="col-md-6">
+                <div class="col-md1 ">
+                    <a th:href="@{#}" class="b-link-stripe b-animate-go  thickbox"><img
+                            class="img-responsive" th:src="@{/web/images/t2.jpg}" alt="">
+                        <div class="b-wrapper">
+                            <h3 class="b-animate b-from-top top-in1   b-delay03 ">
+                                <span>Lorem</span>
+                            </h3>
+                        </div>
+                    </a>
+
+                </div>
+                <div class="col-md2">
+                    <div class="col-md-6 men1">
+                        <a th:href="@{#}" class="b-link-stripe b-animate-go  thickbox"><img
+                                class="img-responsive" th:src="@{/web/images/t3.jpg}" alt="">
+                            <div class="b-wrapper">
+                                <h3 class="b-animate b-from-top top-in2   b-delay03 ">
+                                    <span>Lorem</span>
+                                </h3>
+                            </div>
+                        </a>
+
+                    </div>
+                    <div class="col-md-6 men2">
+                        <a th:href="@{#}" class="b-link-stripe b-animate-go  thickbox"><img
+                                class="img-responsive" th:src="@{/web/images/t4.jpg}" alt="">
+                            <div class="b-wrapper">
+                                <h3 class="b-animate b-from-top top-in2   b-delay03 ">
+                                    <span>Lorem</span>
+                                </h3>
+                            </div>
+                        </a>
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!---->
+    <div class="content-bottom">
+        <h2 style="text-align: center;">TOP ĐỊA ĐIỂM</h2> <br>
+        <ul>
+            <li><a th:href="@{#}"><img class="img-responsive"
+                                       th:src="@{/web/images/lo.png}"
+                                       alt=""></a></li>
+            <li><a th:href="@{#}"><img class="img-responsive"
+                                       th:src="@{/web/images/lo1.png}" alt=""></a>
+            </li>
+            <li><a th:href="@{#}"><img class="img-responsive"
+                                       th:src="@{/web/images/lo2.png}" alt=""></a>
+            </li>
+            <li><a th:href="@{#}"><img class="img-responsive"
+                                       th:src="@{/web/images/lo3.png}" alt=""></a>
+            </li>
+            <li><a th:href="@{#}"><img class="img-responsive"
+                                       th:src="@{/web/images/lo4.png}" alt=""></a>
+            </li>
+            <li><a th:href="@{#}"><img class="img-responsive"
+                                       th:src="@{/web/images/lo5.png}" alt=""></a>
+            </li>
+            <div class="clearfix"></div>
+        </ul>
+    </div>
+</div>
+<head th:replace="web/common/footer :: footer"/>
+</body>
+</html>

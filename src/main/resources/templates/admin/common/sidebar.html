@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:fragment="sidebar">
+    <aside>
+        <div id="sidebar"  class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <p class="centered"><a href="/admin-home"><img src="/admin/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+                <h5 class="centered">Admin</h5>
+
+                <li class="mt">
+                    <a class="item" href="/admin-home">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="mt">
+                    <a class="item" href="/admin-home/room/">
+                        <i class="fa fa-tasks"></i>
+                        <span>Quản lý phòng</span>
+                    </a>
+                </li>
+                <li class="mt">
+                    <a class="item" href="/admin-home/user/">
+                        <i class="fa fa-cogs"></i>
+                        <span>Quản lý người dùng</span>
+                    </a>
+                </li>
+                <li class="mt">
+                    <a class="item" href="/admin-home/post/">
+                        <i class="fa fa-cogs"></i>
+                        <span>Quản lý bài đăng</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+</div>
